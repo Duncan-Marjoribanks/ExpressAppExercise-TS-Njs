@@ -1,14 +1,21 @@
-import express, {Request, Response} from 'express'
+import express, {Request, Response, NextFunction} from 'express'
 
 const app = express();
 
 app.use(express.json())
 
-//4th pass route parameters
-app.get('/api/books/:bookId/:authorId', (req: Request, res: Response) =>{
-  console.log(req.params);
+//5th pass abstraction of route to function
+function getBook( req: Request, res: Response, next: NextFunction ){
+  console.log(req.params)
   return res.send(req.params);
-});
+};
+app.get('/api/books/:bookId/:authorId', getBook);
+
+//4th pass route parameters
+// app.get('/api/books/:bookId/:authorId', (req: Request, res: Response) =>{
+//   console.log(req.params);
+//   return res.send(req.params);
+// });
 
 //3rd pass routes (string patterns)
 // app.get('/health', (req: Request, res: Response) => res.sendStatus(200))
