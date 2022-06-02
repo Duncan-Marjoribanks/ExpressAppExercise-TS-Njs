@@ -3,14 +3,18 @@ import express, {Request, Response} from 'express'
 const app = express();
 
 app.use(express.json())
-app.use(express.urlencoded({ extended:true }));
 
+//4th pass route parameters
+app.get('/api/books/:bookId/:authorId', (req: Request, res: Response) =>{
+  console.log(req.params);
+  return res.send(req.params);
+});
 
 //3rd pass routes (string patterns)
-app.get('/health', (req: Request, res: Response) => res.sendStatus(200))
-app.get('/abc', (req: Request, res: Response) => res.send("abc"))
-app.get('/ab*cd', (req: Request, res: Response) => res.send("ab*cd"))
-app.get(/xyz/, (req: Request, res: Response) => res.send("xyz"))
+// app.get('/health', (req: Request, res: Response) => res.sendStatus(200))
+// app.get('/abc', (req: Request, res: Response) => res.send("abc"))
+// app.get('/ab*cd', (req: Request, res: Response) => res.send("ab*cd"))
+// app.get(/xyz/, (req: Request, res: Response) => res.send("xyz"))
 
 //2nd pass routes
 // app
