@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended:true }));
 app.get('/', (req: Request, res: Response) =>{
   return res.json({
     success: true,
-    name: DuncansExpressApp
+    name: "DuncansExpressApp"
   });
 });
 
