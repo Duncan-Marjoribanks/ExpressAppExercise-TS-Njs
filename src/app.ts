@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json())
 
-//7th pass defining request params and body
+//8th pass adding error handling
 const middleware =
   ({name}:{name: String}) =>
   ( req: Request, res: Response, next: NextFunction ) =>{
@@ -34,13 +34,51 @@ app.get(
 
     console.log(req.params.bookId)
     console.log(req.params.authorId)
-
     console.log(req.body.name)
-
 
     res.send(res.locals.name)
     }
   );
+
+  app.get('/error', () =>{
+    throw new Error('Internal Server Error');
+  })
+
+//7th pass defining request params and body
+// const middleware =
+//   ({name}:{name: String}) =>
+//   ( req: Request, res: Response, next: NextFunction ) =>{
+//     res.locals.name = name;
+//
+//     next();
+//   };
+//
+// app.use(middleware({name: "Duncan"}));
+//
+// app.get(
+//   '/api/books/:bookId/:authorId',
+//   (
+//     req: Request<{
+//                   bookId: string,
+//                   authorId: string
+//                 },
+//                 {},
+//                 {
+//                   name: string
+//                 },
+//                 {}>,
+//     res: Response,
+//     next: NextFunction) =>{
+//
+//     console.log(res.locals.name)
+//
+//     console.log(req.params.bookId)
+//     console.log(req.params.authorId)
+//     console.log(req.body.name)
+//
+//     res.send(res.locals.name)
+//     }
+//   );
 
 //6th pass adding middleware
 // const middleware =
