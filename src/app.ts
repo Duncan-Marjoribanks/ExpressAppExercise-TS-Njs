@@ -3,9 +3,11 @@ import helmet from 'helmet'
 
 const app = express();
 
-app.use(helmet());
 
-app.use(express.json());
+app.use(helmet())
+
+app.use(express.json())
+
 
 //8th pass adding error handling
 const middleware =
