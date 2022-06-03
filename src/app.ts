@@ -38,11 +38,21 @@ app.get(
 
     res.send(res.locals.name)
     }
-  );
+);
 
-  app.get('/error', () =>{
-    throw new Error('Internal Server Error');
-  })
+async function throwsError(){
+  throw new Error('Boom');
+}
+
+app.get('/error', async (req, res) =>{
+  try{
+      await throwsError();
+      res.sendStatus(200);
+  }
+  catch(e){
+      res.status(400).send('Something bad happened!');
+  }
+})
 
 //7th pass defining request params and body
 // const middleware =
