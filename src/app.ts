@@ -4,9 +4,9 @@ import helmet from 'helmet'
 const app = express();
 
 
-app.use(helmet())
+app.use(helmet());
 
-app.use(express.json())
+app.use(express.json());
 
 
 //8th pass adding error handling
@@ -35,13 +35,13 @@ app.get(
     res: Response,
     next: NextFunction) =>{
 
-    console.log(res.locals.name)
+    console.log(res.locals.name);
 
-    console.log(req.params.bookId)
-    console.log(req.params.authorId)
-    console.log(req.body.name)
+    console.log(req.params.bookId);
+    console.log(req.params.authorId);
+    console.log(req.body.name);
 
-    res.send(res.locals.name)
+    res.send(res.locals.name);
     }
 );
 
