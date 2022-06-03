@@ -4,17 +4,37 @@ const app = express();
 
 app.use(express.json())
 
-//5th pass abstraction of route to function and add ordered parameter handling
-function getBook( req: Request, res: Response, next: NextFunction ){
-  console.log("req.params")
+
+//6th pass adding middleware
+function middleware( req: Request, res: Response, next: NextFunction ){
+  //@ts-ignore
+  req.name = "Dunk";
+
   next();
 };
 
-function getBookTwo( req: Request, res: Response, next: NextFunction){
-  console.log("second parameter handler");
-  return res.send(req.params);
-}
-app.get('/api/books/:bookId/:authorId', getBook, getBookTwo)
+app.get(
+  '/api/books/:bookId/:authorId',
+  middleware,
+  (req: Request, res: Response, next: NextFunction) =>{
+    //@ts-ignore
+    console.log(req.name)
+    //ts-ignore
+    res.send(req.name)
+  }
+);
+
+//5th pass abstraction of route to function and add ordered parameter handling
+// function getBook( req: Request, res: Response, next: NextFunction ){
+//   console.log("req.params")
+//   next();
+// };
+//
+// function getBookTwo( req: Request, res: Response, next: NextFunction){
+//   console.log("second parameter handler");
+//   return res.send(req.params);
+// }
+// app.get('/api/books/:bookId/:authorId', getBook, getBookTwo)
 
 //4th pass route parameters
 // app.get('/api/books/:bookId/:authorId', (req: Request, res: Response) =>{
