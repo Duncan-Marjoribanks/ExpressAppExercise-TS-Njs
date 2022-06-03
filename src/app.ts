@@ -4,8 +4,7 @@ const app = express();
 
 app.use(express.json())
 
-
-//6th pass adding middleware
+//7th pass defining request params and body
 const middleware =
   ({name}:{name: String}) =>
   ( req: Request, res: Response, next: NextFunction ) =>{
@@ -18,12 +17,49 @@ app.use(middleware({name: "Duncan"}));
 
 app.get(
   '/api/books/:bookId/:authorId',
-  (req: Request, res: Response, next: NextFunction) =>{
+  (
+    req: Request<{
+                  bookId: string,
+                  authorId: string
+                },
+                {},
+                {
+                  name: string
+                },
+                {}>,
+    res: Response,
+    next: NextFunction) =>{
+
     console.log(res.locals.name)
-    
+
+    console.log(req.params.bookId)
+    console.log(req.params.authorId)
+
+    console.log(req.body.name)
+
+
     res.send(res.locals.name)
-  }
-);
+    }
+  );
+
+//6th pass adding middleware
+// const middleware =
+//   ({name}:{name: String}) =>
+//   ( req: Request, res: Response, next: NextFunction ) =>{
+//     res.locals.name = name;
+//
+//     next();
+//   };
+//
+// app.use(middleware({name: "Duncan"}));
+//
+// app.get(
+//   '/api/books/:bookId/:authorId',
+//   (req: Request, res: Response, next: NextFunction) =>{
+//     console.log(res.locals.name)
+//     res.send(res.locals.name)
+//   }
+// );
 
 //5th pass abstraction of route to function and add ordered parameter handling
 // function getBook( req: Request, res: Response, next: NextFunction ){
