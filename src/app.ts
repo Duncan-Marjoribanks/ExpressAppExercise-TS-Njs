@@ -4,12 +4,17 @@ const app = express();
 
 app.use(express.json())
 
-//5th pass abstraction of route to function
+//5th pass abstraction of route to function and add ordered parameter handling
 function getBook( req: Request, res: Response, next: NextFunction ){
-  console.log(req.params)
-  return res.send(req.params);
+  console.log("req.params")
+  next();
 };
-app.get('/api/books/:bookId/:authorId', getBook);
+
+function getBookTwo( req: Request, res: Response, next: NextFunction){
+  console.log("second parameter handler");
+  return res.send(req.params);
+}
+app.get('/api/books/:bookId/:authorId', getBook, getBookTwo)
 
 //4th pass route parameters
 // app.get('/api/books/:bookId/:authorId', (req: Request, res: Response) =>{
