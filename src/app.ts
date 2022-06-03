@@ -13,9 +13,11 @@ function middleware( req: Request, res: Response, next: NextFunction ){
   next();
 };
 
+app.use(middleware);
+
 app.get(
   '/api/books/:bookId/:authorId',
-  middleware,
+
   (req: Request, res: Response, next: NextFunction) =>{
     //@ts-ignore
     console.log(req.name)
