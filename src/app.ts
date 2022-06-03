@@ -6,14 +6,16 @@ app.use(express.json())
 
 
 //6th pass adding middleware
-function middleware( req: Request, res: Response, next: NextFunction ){
-  //@ts-ignore
-  req.name = "Dunk";
+const middleware =
+  ({name}:{name: String}) =>
+  ( req: Request, res: Response, next: NextFunction ) =>{
+    //@ts-ignore
+    req.name = name;
 
-  next();
-};
+    next();
+  };
 
-app.use(middleware);
+app.use(middleware({name: "Duncan"}));
 
 app.get(
   '/api/books/:bookId/:authorId',
